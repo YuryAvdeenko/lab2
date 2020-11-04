@@ -55,6 +55,16 @@ class MainFrame extends JFrame {
                 + Math.pow((Math.log(z * z)) + Math.sin(Math.PI * x * x), 3), 0.5);
     }
 
+    // Формула №2 для рассчѐта
+    public Double calculate2(Double x, Double y, Double z) {
+        if (x == -1) {
+            JOptionPane.showMessageDialog(MainFrame.this,
+                    "X не может равняться -1", "" + "Ошибка ввода", JOptionPane.WARNING_MESSAGE);
+            return 0.0;
+        }
+        return Math.pow(y, 0.5) * 3 * Math.pow(z, x) / Math.sqrt(1 + Math.pow(y, 3));
+    }
+
     // Вспомогательный метод для добавления кнопок на панель
     private void addRadioButton(String buttonName, final int formulaId) {
         JRadioButton button = new JRadioButton(buttonName);
@@ -70,10 +80,22 @@ class MainFrame extends JFrame {
 
     public MainFrame() {
         super("ВЫчисление формулы");
-	// write your code here
+        setSize(WIDTH, HEIGHT);
+        Toolkit kit = Toolkit.getDefaultToolkit();
+
+        // Отцентрировать окно приложения на экране
+        setLocation((kit.getScreenSize().width - WIDTH) / 2, (kit.getScreenSize().height - HEIGHT) / 2);
+        hboxFormulaType.add(Box.createHorizontalGlue());
+        addRadioButton("Формула 1", 1);
+        addRadioButton("Формула 2", 2);
+        radioButtons.setSelected(radioButtons.getElements().nextElement().getModel(), true);
+        hboxFormulaType.add(Box.createHorizontalGlue());
     }
 
     public static void main(String[] args){
-    // write your code here
+        MainFrame frame = new MainFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        }
     }
 }
